@@ -11,6 +11,6 @@ public class EmployeeController {
     @RequestMapping("/schedule")
     public String getSchedule() {
 
-        return "Your v1 schedule is M-F 9-9";
+        return "Your v2 schedule is M-W 6-6";
     }
 }

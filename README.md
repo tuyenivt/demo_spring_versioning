@@ -5,20 +5,41 @@
 - URI - simplicity (versioning in URI): /v1, /v2
 - Custom Header - single URI (keep versioning out of the URI): Accept-version: v1, Accept-version: v2
 
-### Deployment
+### Managing Versions
 
-- Using branching and load balancer
-- Versions of the application deployed behind a load balancer or proxy server which will look for 
-  - v1 or v2 in the URI path and route the traffic to the appropriate deployment
-  - custom HTTP header you defined and route calls based on the defined values you have set
-    - should define a default rule to remind clients that they need to include the custom header called Accept-version in Headers in case they missing and show supported versions
+- Grouping breaking changes into a single release (major version like v1 and v2)
+- Set an end-of-life date for the previous version when a new version released
+- Continue to bug fix and independently deploy old versions of the API behind a load balancer to route the traffic based on rules
+  - URI: look for v1 or v2 in the URI path
+  - Custom Header: look for custom HTTP header you defined and route calls based on the defined values you have set
+- Apply fixes from the new version to the old version using cherry-pick
 
 ## Versioning
 
-- Version 1: **v1** branch
 - Version 2: **master** branch
+- Version 1: **v1** branch
 
-## Examples
+## V2
+
+```bash
+git checkout master
+# health check
+curl --location --request GET 'http://localhost:8080/actuator/health'
+# get all employees
+curl --location --request GET 'http://localhost:8080/v2/employees'
+# create a new employee
+curl --location --request POST 'http://localhost:8080/v2/employees' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "tuyen",
+    "title": "developer",
+    "department": "sd"
+}'
+# get schedule
+curl --location --request GET 'http://localhost:8080/v2/schedule'
+```
+
+## V1
 
 ```bash
 git checkout v1

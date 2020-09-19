@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -18,12 +19,15 @@ public class Employee {
 
     public String name;
     public String title;
+    @NotNull
+    public String department;
 
     protected Employee() {
     }
 
-    public Employee(String name, String title) {
+    public Employee(String name, String title, String department) {
         this.name = name;
         this.title = title;
+        this.department = department;
     }
 }

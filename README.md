@@ -37,6 +37,9 @@ curl --location --request POST 'http://localhost:8080/v2/employees' \
 }'
 # get schedule
 curl --location --request GET 'http://localhost:8080/v2/schedule'
+# get location (custom header)
+curl --location --request GET 'http://localhost:8080/location' \
+--header 'Accept-version: v2'
 ```
 
 ## V1
